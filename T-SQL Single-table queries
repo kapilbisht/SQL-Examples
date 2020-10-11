@@ -1,0 +1,131 @@
+-- Single-table queries
+
+USE [AdventureWorks2019];
+GO
+
+SELECT * FROM
+[Sales].[SalesOrderDetail];
+GO
+
+-- Elements of SELECT statement
+
+SELECT [SalesOrderID],YEAR([ModifiedDate]) AS [Order Year],COUNT(*) AS [Number of Orders]
+FROM [Sales].[SalesOrderDetail]
+WHERE [SpecialOfferID] = 1
+GROUP BY [SalesOrderID],YEAR([ModifiedDate]) HAVING COUNT(*) > 1
+ORDER BY [SalesOrderID], [Order Year];
+GO
+
+-- the order in which the query clauses are logically processed.
+-- 1.	FROM 
+-- 2.	WHERE
+-- 3.	GROUP BY
+-- 4.	HAVING
+-- 5.	SELECT
+-- 6.	ORDER BY
+
+GO
+--- the FROM clause
+SELECT [SalesOrderID], YEAR([ModifiedDate]) AS [Order Year], [ProductID]
+FROM [Sales].[SalesOrderDetail];
+GO
+--- the WHERE clause
+SELECT [SalesOrderID], YEAR([ModifiedDate]) AS [Order Year], [ProductID]
+FROM [Sales].[SalesOrderDetail]
+WHERE [ProductID] = 776;
+GO
+--- The GROUP BY clasue
+
+SELECT [SalesOrderID], YEAR([ModifiedDate]) AS [Order Year], 
+		COUNT(DISTINCT YEAR([ModifiedDate]))
+FROM [Sales].[SalesOrderDetail]
+WHERE [ProductID] = 776
+GROUP BY [SalesOrderID], YEAR([ModifiedDate]);
+GO
+
+--- The HAVING clause
+SELECT [SalesOrderID], YEAR([ModifiedDate]) AS [Order Year]
+FROM [Sales].[SalesOrderDetail]
+WHERE [SpecialOfferID]= 1
+GROUP BY [SalesOrderID], YEAR([ModifiedDate]) HAVING COUNT(*) >1;
+GO
+
+--- The ORDER BY clause
+SELECT [SalesOrderID], YEAR([ModifiedDate]) AS [Order Year]
+FROM [Sales].[SalesOrderDetail]
+WHERE [SpecialOfferID]= 1
+GROUP BY [SalesOrderID], YEAR([ModifiedDate]) HAVING COUNT(*) >1
+ORDER BY [SalesOrderID], [Order Year];
+GO
+
+--- The TOP and OFFSET-FETCH Filters
+--- TOP
+--- The TOP allows you to limit the number or percentage of rows that query returns. 
+SELECT * FROM [Sales].[SalesOrderDetail];
+GO
+
+SELECT TOP(5) [SalesOrderID],[SalesOrderDetailID],[UnitPrice]
+FROM [Sales].[SalesOrderDetail]
+ORDER BY [UnitPrice] DESC, [SalesOrderID] DESC;
+GO
+
+SELECT TOP(1) PERCENT [SalesOrderID],[SalesOrderDetailID],[UnitPrice]
+FROM [Sales].[SalesOrderDetail]
+ORDER BY [UnitPrice] DESC;
+GO
+
+--- The OFFSET-FETCH filter
+--- OFFSET clause indicate how many rows to skip, FETCH clause indicate how many rows to skip.
+
+SELECT [SalesOrderID],[SalesOrderDetailID],[UnitPrice]
+FROM [Sales].[SalesOrderDetail]
+ORDER BY [UnitPrice], [SalesOrderID]
+OFFSET 50 ROWS FETCH NEXT 25 ROWS ONLY;
+GO
+
+--- Prdicates and operators
+--- Predicates --- Predicates are logical expressions that evaluate TRUE, FALSE and UNKNOWN.
+--- Predicates supported by T-SQL include IN, BETWEEN, and LIKE.
+
+-- IN -- allows us to check whether a value, or scalar expression, is equal to at least one element in a set.
+SELECT * FROM [HumanResources].[Employee]
+
+SELECT [BusinessEntityID], [NationalIDNumber] 
+FROM [HumanResources].[Employee]
+WHERE [BusinessEntityID] IN (2,5,6,9,12,25);
+GO
+
+--- BETWEEN predicate allows us to check whether a value is in specified range.
+SELECT [BusinessEntityID], [NationalIDNumber] 
+FROM [HumanResources].[Employee]
+WHERE [BusinessEntityID] BETWEEN  25 AND 250;
+GO
+
+
+----
+-- Displaying entries that are max of count.
+
+Select * from [Person].[PersonPhone] 
+ORDER BY [PhoneNumber] ASC;
+GO
+
+SELECT [PhoneNumber], COUNT([PhoneNumberTypeID]) AS [Count Type No.]
+FROM [Person].[PersonPhone] 
+GROUP BY [PhoneNumber] HAVING COUNT([PhoneNumberTypeID]) =
+	(SELECT MAX([Phone Number Type ID]) FROM
+		(SELECT [PhoneNumber],COUNT([PhoneNumberTypeID]) AS [Phone Number Type ID]
+			FROM [Person].[PersonPhone] 
+			GROUP BY [PhoneNumber]) t1);
+GO
+
+SELECT [PhoneNumber], COUNT([PhoneNumberTypeID]) AS [Count Type No.]
+FROM [Person].[PersonPhone]
+GROUP BY [PhoneNumber]
+ORDER BY [Count Type No.] desc;
+GO
+
+
+SELECT name, MAX(salary) AS salary
+  FROM employee
+ WHERE salary < (SELECT MAX(salary)
+                 FROM employee); 
