@@ -1,0 +1,107 @@
+-- T-SQL string functions
+
+GO
+
+--1. CHARINDEX -returns start position.
+
+DECLARE @string varchar(64);
+SELECT @string = 'CHARINDEX EXAMPLE';
+
+SELECT CHARINDEX('P',@string) AS 'COL1',
+CHARINDEX('R',@string) AS 'COL2',
+CHARINDEX('LE',@string,9) AS 'COL3'
+GO
+
+--2. CONCAT -returns a string as a result of a concatenation.
+SELECT * FROM [Person].[Person]
+GO
+
+SELECT CONCAT([FirstName],' ',[LastName]) AS [FULL NAME] FROM [Person].[Person]
+GO
+
+--3. LEFT --returns the left part of character string.
+
+SELECT LEFT('ABCDEFGHIJ',3)
+GO
+
+SELECT LEFT('12345',2)
+GO
+
+SELECT LEFT(654321,2)
+GO
+
+SELECT LEFT('1A2B3C',3)
+GO
+
+--4. LEN --returns the number of characters from a string expression, excluding trailing spaces.
+
+SELECT LEN('HAPPY ENDING  ') AS [STRING LENGTH]
+GO
+
+SELECT LEN(1234567890) AS [LENGTH]
+GO
+
+SELECT LEN('1A2B3C4D') AS [STRING LENGTH]
+GO
+
+--5. LTRIM --returns a character expression after it removes leading blanks.
+
+DECLARE @mystring varchar(250);
+SET @mystring = '      Test LTRIM function - delete spaces from the beginning of my string.';
+SELECT LTRIM(@mystring);
+GO
+
+--6. SUBSTRING --returns part of a character.
+
+SELECT * FROM [Person].[CountryRegion]
+GO
+
+SELECT Name, SUBSTRING(Name, 1, 1) AS Initial, SUBSTRING(Name, 1, 3) AS Short_name
+FROM [Person].[CountryRegion]
+GO
+
+--7. PATINDEX --returns the starting position of the first occurrence of a pattern in a specified expression.
+
+ SELECT * FROM [Person].[CountryRegion]
+ GO
+
+ SELECT PATINDEX('A%',Name) AS [Result Pattern Index] FROM [Person].[CountryRegion]
+ GO
+
+ --8. REPLACE --replace vlaue of speccified string with another string.
+
+ SELECT REPLACE('abcdefghijk','def','yyy')
+ GO
+
+ SELECT REPLACE('12345','3','c')
+ GO
+
+ SELECT REPLACE(342,2,5)
+ GO
+
+ --9. RIGHT --return right part of a string.
+
+ SELECT RIGHT ('zxcvbnm',3);
+ GO
+
+ SELECT RIGHT (78901,2);
+ GO
+ 
+ SELECT RIGHT ('1a2b3c',4);
+ GO
+
+
+ --10. RTRIM --returns a character string after truncating trailing spaces.
+
+ DECLARE @mystring varchar(250);
+ SET @mystring = 'Test RTRIM function - delete spaces from the beginning of my string.       ';
+ SELECT RTRIM(@mystring);
+ GO
+
+ --11. UPPER --return uppercase character expression.
+
+ SELECT UPPER ('1a2b3c');
+ GO
+
+ SELECT UPPER ('abcdefg');
+ GO
