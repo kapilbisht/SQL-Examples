@@ -1,0 +1,33 @@
+-- T-SQL Aggregate Functions
+--1. AVG -returns the average value.
+
+SELECT AVG([UnitPrice]) AS [Average of Unit Price > 50] from [Purchasing].[PurchaseOrderDetail]
+where [UnitPrice] > 50
+GO
+
+--2. COUNT -returns the number of rows.
+
+SELECT COUNT([UnitPrice]) AS [Count where Unit Price > 50] from [Purchasing].[PurchaseOrderDetail]
+where [UnitPrice] > 50
+GO
+
+
+--3. MAX -returns the maximum value.
+
+SELECT MAX([UnitPrice]) AS [Maximum Unit Price] from [Purchasing].[PurchaseOrderDetail]
+GO
+
+--4. MIN -returns the minimum value.
+
+SELECT MIN([UnitPrice]) AS [Minimum Unit Price] from [Purchasing].[PurchaseOrderDetail]
+GO
+
+--5. SUM -returns the sum of all values.
+
+SELECT SUM([UnitPrice]) AS [Sum of Unit Price > 50] from [Purchasing].[PurchaseOrderDetail]
+where [UnitPrice] > 50
+GO
+
+
+Select (39579.6765/651) as Avg
+GO
