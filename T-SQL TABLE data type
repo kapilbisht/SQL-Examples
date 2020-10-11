@@ -1,0 +1,33 @@
+--TABLE data type
+-- t-sql allows you to declare a variable of data type TABLE.
+
+BEGIN
+DECLARE @v_Emp_ID integer = 1;
+ 
+ -- Declare a variable of type TABLE.
+ DECLARE @v_Table TABLE (
+   First_Name varchar(30),
+   Last_Name varchar(30),
+   Emp_Id varchar(15)
+ );
+ 
+ -- Using INSERT INTO statement to insert data into @v_Table.
+ INSERT INTO @v_Table (Emp_Id,First_Name, Last_Name)
+   SELECT
+    Emp_Id = [Person].[Person].[BusinessEntityID],
+	First_Name = [Person].[Person].[FirstName],
+	Last_Name = [Person].[Person].[LastName]
+	FROM [Person].[Person] where [Person].[Person].[BusinessEntityID]< 4;
+ 
+ -- Update @v_Table
+ UPDATE @v_Table
+ SET Last_Name = 'Ben'
+ WHERE First_name = 'Ken';
+ 
+ -- Query @v_Table.
+ SELECT
+   *
+ FROM @v_Table;
+END;
+
+select* from Person.Person;
