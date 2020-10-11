@@ -1,0 +1,18 @@
+-- Transact-SQL -- T-SQL
+-- T-SQL structure of block
+
+BEGIN
+  --DECLARE VARIABLES
+  DECLARE @v_result INT;
+  DECLARE @v_a INT = 50;
+  DECLARE @v_b INT =100;
+
+  --T-SQL STATEMENTS
+  PRINT 'v_a= ' +CAST(@v_a as VARCHAR(15)); --CAST is used to convert INT into STRING
+  PRINT 'v_B= ' +CAST(@v_b as VARCHAR(15)); --CAST is used to convert INT into STRING
+  
+  --sum
+  SET @v_result = @v_a + @v_b;
+
+  PRINT 'v_result= ' +CAST(@v_result as VARCHAR(15)); --CAST is used to convert INT into STRING
+END;
