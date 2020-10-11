@@ -1,0 +1,119 @@
+-- Sort Query Results using Order By
+-- In order to sort the results use ORDER BY clause.
+-- This comes after FROM clause and is where you specify columns and expression to use to order your data.
+-- While using ORDER BY clause select statement takes the form -
+-- SELECT columns FROM table_name ORDER BY columns.
+
+SELECT [FirstName],[LastName] 
+FROM [Person].[Person] 
+ORDER BY [LastName]
+GO
+
+SELECT [FirstName],[LastName] 
+FROM [Person].[Person] 
+ORDER BY [LastName] DESC
+GO
+
+SELECT [FirstName],[LastName] 
+FROM [Person].[Person] 
+ORDER BY [FirstName] ASC
+GO
+
+-- Sort more than one column
+
+SELECT [PurchaseOrderID], [OrderQty], [UnitPrice] 
+FROM [Purchasing].[PurchaseOrderDetail]
+ORDER BY [OrderQty], [UnitPrice]
+GO
+
+SELECT [PurchaseOrderID], [OrderQty], [UnitPrice] 
+FROM [Purchasing].[PurchaseOrderDetail]
+ORDER BY [OrderQty] ASC, [UnitPrice] DESC
+GO
+
+-- Order by using a calculated value
+
+SELECT [PurchaseOrderID], [OrderQty], [UnitPrice], [UnitPrice]*[OrderQty] AS [Total Price] 
+FROM [Purchasing].[PurchaseOrderDetail]
+ORDER BY [UnitPrice]*[OrderQty] DESC
+GO
+
+
+-- Get TOP results
+
+SELECT 
+TOP 5 [PurchaseOrderID], [OrderQty], [UnitPrice]*[OrderQty] AS [Total Price] 
+FROM [Purchasing].[PurchaseOrderDetail]
+ORDER BY [Total Price] DESC
+GO
+
+
+-- Get Bottom results
+
+SELECT 
+TOP 100 [PurchaseOrderID], [OrderQty], [UnitPrice]*[OrderQty] AS [Total Price] 
+FROM [Purchasing].[PurchaseOrderDetail]
+ORDER BY [Total Price] ASC
+GO
+
+-- OFFSET and FETCH with the ORDER BY clause
+-- OFFSET and FETCH are used in conjuction with the SELECT statement and ORDER BY clause to provide a means to retrieve a range of records.
+-- the starting row to return is determined by the OFFSET value and the maximum number of rows to return from that point on by FETCH.
+
+-- OFFSET
+-- the OFFSET is used to identify the starting point to return rows from a result.
+-- OFFSET is called an argument since it is technically part of the order by clause.
+-- OFFSET is the number of rows-to-skip before including them into the result.
+
+-- general form of the OFFSET argument is - 
+-- SELECT columns FROM table ORDER BY columns OFFSET rows-to-skip ROWS
+
+SELECT
+[NationalIDNumber], [JobTitle], [HireDate]
+FROM [HumanResources].[Employee]
+ORDER BY [HireDate] 
+OFFSET 10 ROWS
+GO
+
+-- points to noted about OFFSET 
+-- OFFSET is part of the ORDER BY clause. It cannot be used on its own.
+-- OFFSET values must be zero or greater. A negative number results in an error.
+-- When OFFSET is 0, then no rows are skipped.
+-- If OFFSET is greater than the number of rows in the ordered results, then no rows are returned.
+
+
+-- FETCH
+-- FETCH argument is used to return a set number of rows.
+-- FETCH can't be used by itself.
+-- it is used in conjunction with OFFSET.
+
+SELECT
+[NationalIDNumber], [JobTitle], [HireDate]
+FROM [HumanResources].[Employee]
+ORDER BY [HireDate] 
+OFFSET 10 ROWS
+FETCH NEXT 5 ROWS ONLY
+GO
+
+-- The above query instructs SQL to:
+-- Select the employee information
+-- Order the information by HireDate
+-- Skip 10 rows and start display results from the 11th
+-- Display the next 5 rows of results.
+
+-- Getting Bottom Records using OFFSET and FETCH
+
+SELECT
+[NationalIDNumber], [JobTitle], [HireDate]
+FROM [HumanResources].[Employee]
+ORDER BY [HireDate] 
+OFFSET (SELECT COUNT(*) FROM [HumanResources].[Employee]) -5 ROWS 
+FETCH NEXT 5 ROWS ONLY
+GO
+
+
+SELECT
+[NationalIDNumber], [JobTitle], [HireDate]
+FROM [HumanResources].[Employee]
+ORDER BY [HireDate]
+GO
