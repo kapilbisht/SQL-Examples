@@ -1,0 +1,56 @@
+SELECT * from [Production].[ProductCategory]
+GO
+
+SELECT * from [Production].[ProductSubcategory]
+GO
+
+--JOINS
+-- The SQL Join clause is used to combine records(rows) from two or more tables in SQL database based on related collumn between them.
+GO
+
+--Left Join
+-- Retrives all the records(rows) from the left and the matched records(rows) from the right table.
+
+SELECT * from [Production].[ProductCategory] CATEGORY
+LEFT JOIN [Production].[ProductSubcategory] SUBCATEGORY
+ON CATEGORY.ProductCategoryID = SUBCATEGORY.ProductCategoryID
+GO
+
+--Right Join
+-- Retrives all the records(rows) from the right and matched records(rows) from the left table.
+
+SELECT * from [Production].[ProductCategory] CATEGORY
+RIGHT JOIN [Production].[ProductSubcategory] SUBCATEGORY
+ON CATEGORY.ProductCategoryID = SUBCATEGORY.ProductCategoryID
+GO
+
+--Inner Join
+-- Retrives records that have matching values in both tables involved in join.
+
+SELECT * from [Production].[ProductCategory] A 
+INNER JOIN [Production].[ProductSubcategory] B 
+on A.ProductCategoryID=B.ProductCategoryID
+GO
+
+--FULL Join
+-- Retrives all the records(rows) where there is a match in either the left or right table.
+
+SELECT * from [Production].[ProductCategory] A 
+FULL JOIN [Production].[ProductSubcategory] B 
+on A.ProductCategoryID=B.ProductCategoryID
+GO
+
+--SELF JOIN
+-- A Self Join is a case of regular join where a table is joined to itself based on some relation between its own column(s).
+-- Self Join uses the Inner Join or Left Join and a table alias is used to assign different names to the table within the query.
+Select 
+A.[NationalIDNumber] As "NID", B.[NationalIDNumber] As "SID", A.JobTitle AS "JTitle"
+from [HumanResources].[Employee] A 
+INNER JOIN [HumanResources].[Employee] B
+ON A.NationalIDNumber = B.NationalIDNumber
+GO
+
+--CROSS JOIN
+-- A Cross Join is used when you wish to create a combination of every row from two tables.
+-- All row combinations are included in the result.
+GO
