@@ -1,0 +1,35 @@
+-- Some simple examples of SELECT queries
+-- SELECT Queries
+-- A simple select statement consists of two parts.
+-- First part describe the column and second part which table we are viewing.
+
+SELECT [LastName] FROM [Person].[Person]
+GO
+
+-- Rename SQL column
+-- To rename use AS statement 
+
+SELECT [LastName] AS [Sir Name] FROM [Person].[Person]
+GO
+
+-- Combining values together
+-- '+' is used to combine values
+
+SELECT 
+UPPER([FirstName]) +' '+ UPPER([LastName]) AS [Full Name]
+FROM [Person].[Person]
+GO
+
+-- Doing Math with SQL
+
+SELECT 
+[UnitPrice], [OrderQty], [UnitPrice]*[OrderQty] AS [Total Price]
+FROM [Purchasing].[PurchaseOrderDetail]
+GO
+
+-- Getting DISTINCT values
+
+SELECT 
+DISTINCT [JobTitle] 
+FROM [HumanResources].[Employee]
+GO
