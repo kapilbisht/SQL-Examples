@@ -1,0 +1,94 @@
+-- The basic sql statements
+
+--2.  WHILE loop
+
+BEGIN
+	-- DECLARE VARIABLES
+	DECLARE @x INTEGER = 0;
+	DECLARE @y INTEGER = 10;
+	DECLARE @STEP INTEGER = 0;
+
+	-- T-SQL STATEMENTS
+	WHILE(@x<@y)
+		BEGIN
+			SET @STEP = @STEP + 1;
+			SET @x = @x + 1;
+			SET @y = @y - 1;
+
+			PRINT 'STEP = '+ CAST(@STEP AS VARCHAR(10));
+			PRINT '@x = ' + CAST(@x AS VARCHAR(10))+ '/ @y = '+ CAST(@y AS VARCHAR(10));
+		END;
+	--writing log
+	PRINT 'x,y = ' + CAST(@x AS varchar(10)) + ', ' + CAST(@y AS varchar(10));
+	PRINT '';
+
+END;
+
+-- BREAK STATEMENT
+
+BEGIN
+ 
+	-- Declaring variables
+ 	DECLARE @b_x integer = 0;
+	DECLARE @b_y integer = 10;
+	DECLARE @b_step integer = 0;
+ 
+	--T-SQL STATEMENTS
+	WHILE (@b_x < @b_y)
+ 		BEGIN
+ 	  		SET @b_step = @b_step + 1;
+   			SET @b_x = @b_x + 1;
+   	   		SET @b_y = @b_y - 2;
+ 
+			PRINT 'b_Step =' + CAST(@b_step AS varchar(10));
+   			PRINT '@b_x =' + CAST(@b_x AS varchar(10)) + ' / @b_y = ' + CAST(@b_y AS varchar(10));
+    -- If @x > 2 then exit the loop
+ 	-- (Although conditions in the WHILE is still true).
+	   IF @b_x > 2
+		BEGIN
+    	 BREAK;
+		 PRINT 'AFTER BREAK STATEMENT';
+		END;
+		
+ 	END;
+ 
+ 	-- Write log
+	PRINT 'b_x,b_y = ' + CAST(@b_x AS varchar(10)) + ', ' + CAST(@b_y AS varchar(10));
+	PRINT '';
+ 	
+END;
+
+-- CONTINUE STATEMENT
+BEGIN
+ 
+	-- Declaring variables
+ 	DECLARE @c_x integer = 0;
+	DECLARE @c_y integer = 10;
+	DECLARE @c_step integer = 0;
+ 
+
+	--T-SQL STATEMENTS
+	WHILE (@c_x < @c_y)
+ 		BEGIN
+ 	  		SET @c_step = @c_step + 1;
+   			SET @c_x = @c_x + 1;
+   	   		SET @c_y = @c_y - 2;
+ 
+			PRINT 'c_Step =' + CAST(@c_step AS varchar(10));
+   			PRINT '@c_x =' + CAST(@c_x AS varchar(10)) + ' / @c_y = ' + CAST(@c_y AS varchar(10));
+    -- If @x < 3, then skip the statements below
+ 	-- and continue to new step.
+	   IF @c_x < 3
+		BEGIN
+		 PRINT 'BEFORE CONTINUE STATEMENT';
+    	 CONTINUE;
+		END;
+ 	END;
+ 
+ 	-- Write log
+	PRINT 'c_x,c_y = ' + CAST(@c_x AS varchar(10)) + ', ' + CAST(@c_y AS varchar(10));
+	PRINT '';
+ 	
+END;
+
+select * from [Person].[Person]
