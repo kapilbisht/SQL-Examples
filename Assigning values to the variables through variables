@@ -1,0 +1,22 @@
+-- Assigning values to the variables through variables
+
+BEGIN
+	--declaring variables
+	DECLARE @v_First_Name varchar(30);
+	DECLARE @v_Last_Name varchar(30);
+	DECLARE @v_Emp_Id varchar(10);
+
+	--t-sql statements
+	--Assigning values to the variables
+
+	SELECT
+	@v_Emp_Id = [Person].[Person].[BusinessEntityID],
+	@v_First_Name = [Person].[Person].[FirstName],
+	@v_Last_Name = [Person].[Person].[LastName]
+	FROM [Person].[Person] where [Person].[Person].[BusinessEntityID] = 1;
+
+	--- printing out values
+	PRINT '@v_First_Name = ' + @v_First_Name;
+	PRINT '@v_Last_Name = ' + @v_Last_Name;
+	PRINT '@v_Emp_Id = ' + @v_Emp_Id;
+END;
