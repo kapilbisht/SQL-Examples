@@ -1,0 +1,72 @@
+-- TSQL DATE and TIME functions
+
+GO
+
+--1. @@DATEFIRST --returns the first day of each week.
+
+SELECT @@DATEFIRST AS [First Day]
+GO
+
+--2. CURRENT_TIMESTAMP --returns the current database timestamp
+
+SELECT CURRENT_TIMESTAMP AS [System Date]
+GO
+
+SELECT 'The current timestamp is: '+ CONVERT(char(25),
+CURRENT_TIMESTAMP) as System_date;
+GO
+
+--3. DATEADD --returns date with the specified number interval added.
+
+DECLARE @date datetime = '2014-01-01 13:10:10';
+SELECT 'add_year' as Add_year, DATEADD(year,2,@date) as Result;
+
+--4. DATEDIFF --returns the difference between specified startdate and enddate.
+-- syntax - DATEDIFF ( date_part , start_date , end_date )
+
+DECLARE @start_date datetime = '2007-02-19 22:24:10';
+DECLARE @end_date datetime = '2014-02-19 22:24:10';
+SELECT DATEDIFF(year, @start_date, @end_date) as Result;
+
+--5. DATEFROMPARTS --returns a date value for the specified year, month or day.
+-- syntax - DATETIMEFROMPARTS(year, month, day, hour, minute, seconds, milliseconds)
+
+SELECT DATETIMEFROMPARTS(2014, 2, 22, 8, 53, 39, 7) as Date_1,
+DATETIMEFROMPARTS(2014, 2, 22, 8, 53, 39, 77) as Date_2,
+DATETIMEFROMPARTS(2014, 2, 22, 8, 53, 39, 777) as Date_3;
+
+--6. DATETIMEFROMPARTS --
+
+--7. DATETIME2FROMPARTS --
+
+--8. DATENAME --
+
+--9. DATEPART --
+
+--10. DAY --
+
+--11. EOMONTH --
+
+--12. GETDATE() --
+
+--13. GETUTCDATE() --
+
+--14. ISDATE --
+
+--15. MONTH --
+
+--16. SMALLDATETIMEFROMPARTS --
+
+--17. SWITCHOFFSET --
+
+--18. SYSDATETIME --
+
+--19. SYSDATETIMEOFFSET --
+
+--20. SYSUTCDATETIME --
+
+--21. TIMEFROMPARTS --
+
+--22. TODATETIMEOFFSET --
+
+--23. YEAR --
