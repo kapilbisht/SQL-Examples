@@ -1,0 +1,52 @@
+SELECT * FROM [HumanResources].[Employee]
+GO
+
+--CONCAT() FUNCTION 
+SELECT CONCAT(A.FirstName,' ',A.LastName) AS [FULL NAME] FROM [Person].[Person] A
+GO
+
+SELECT [JobTitle], [Gender], COUNT(1) AS NumberEmployees
+FROM [HumanResources].[Employee]
+GROUP BY JobTitle, Gender
+ORDER BY JobTitle, Gender
+GO
+
+
+--CROSS JOIN
+-- A Cross Join is used when you wish to create a combination of every row from two tables.
+-- All row combinations are included in the result.
+
+WITH cteJobTitle (JobTitle) 
+AS
+(SELECT DISTINCT JobTitle FROM [HumanResources].[Employee]),
+ cteGender (Gender) 
+AS 
+(SELECT DISTINCT Gender from [HumanResources].[Employee])
+ 
+ SELECT J.JobTitle, G.Gender
+ FROM cteJobTitle J CROSS JOIN cteGender G
+ ORDER BY J.JobTitle
+GO
+
+--
+
+--SQL COALESCE function replaces NULL value with the value you define.. 
+
+WITH cteJobTitle (JobTitle) 
+AS
+(SELECT DISTINCT JobTitle FROM [HumanResources].[Employee]),
+ cteGender (Gender) 
+AS 
+(SELECT DISTINCT Gender from [HumanResources].[Employee]),
+cteCounts (JobTitle, Gender, NumberEmployees)
+AS
+(SELECT JobTitle, Gender, COUNT(1) AS NumberEmployees 
+FROM [HumanResources].[Employee] GROUP BY JobTitle, Gender)
+ 
+ SELECT J.JobTitle, G.Gender, COALESCE(C.NumberEmployees,0) AS NumberEmployees
+ FROM cteJobTitle J 
+ CROSS JOIN cteGender G
+ LEFT OUTER JOIN cteCounts AS C
+ ON C.JobTitle = J.JobTitle AND C.Gender = G.Gender
+ ORDER BY J.JobTitle, G.Gender
+GO
