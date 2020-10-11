@@ -1,0 +1,27 @@
+-- The basic t-sql statements
+-- 1. if-else statements
+
+BEGIN
+	--DECLARE VARIABLES
+	DECLARE @v_option INTEGER;
+	DECLARE @v_action VARCHAR(30)
+	
+	--T-SQL STATEMENTS
+	SET @v_option = 2;
+
+	IF @v_option = 1
+		SET @v_action='RUN';
+
+	ELSE IF @v_option = 2
+		BEGIN
+			PRINT 'In block else if @v_otion =2';
+			SET @v_action = 'BACKUP';
+		END;
+
+	ELSE IF @v_option = 3
+		SET @v_action = 'STOP';
+	ELSE
+		SET @v_action = 'INVALID';
+
+	PRINT '@v_action = '+ @v_action;
+END;
