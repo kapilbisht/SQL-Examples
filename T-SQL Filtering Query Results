@@ -1,0 +1,60 @@
+-- Filtering Query Results
+-- SQL WHERE clause
+-- SQL WHERE clause filter the rows against one or more conditions.
+-- When the condition return TRUE, the row is included in the result.
+
+--Equalities
+
+SELECT 
+[FirstName] , [LastName]
+FROM [Person].[Person] 
+WHERE [FirstName] = 'Catherine'
+GO
+
+--Inequaliteies
+SELECT 
+[Title],[FirstName] , [LastName]
+FROM [Person].[Person] 
+WHERE [Title] <> 'Mr.'
+GO
+
+--Membership Conditions
+--The membership type condition allows you to conduct multiple match tests compactly in one statement.
+SELECT 
+[FirstName] , [LastName]
+FROM [Person].[Person] 
+WHERE [FirstName] in ('Catherine','terri','terry')
+GO
+
+-- Compare values within a range.
+-- We can use BETWEEN operator in a SQL WHERE clause to compare values within a range.
+
+SELECT BusinessEntityID, FirstName, LastName
+FROM   Person.Person
+WHERE  BusinessEntityID Between 1200 and 1500
+GO
+
+
+--1. Select PurchaseOrderDetailID, due date, and order quantity for all purchase order detail items whose order quantity is less than 100
+SELECT [PurchaseOrderID],[DueDate], [OrderQty] 
+FROM [Purchasing].[PurchaseOrderDetail] 
+WHERE [OrderQty] < 100
+GO
+
+--2. Select PurchaseOrderDetailID, due date, and order quantity for all purchase order detail items whose order quantity is between 1 and 10
+SELECT [PurchaseOrderID],[DueDate], [OrderQty] 
+FROM [Purchasing].[PurchaseOrderDetail] 
+WHERE [OrderQty] BETWEEN 1 and 10
+GO
+
+--3. Find all Persons whose first name is “Ken”
+SELECT [FirstName], [LastName]
+FROM [Person].[Person]
+WHERE [FirstName] = 'Ken'
+GO
+
+--4. Find all productIDs from PurchaseOrders  421, 424, 142
+SELECT [ProductID], [OrderQty], [DueDate]
+FROM [Purchasing].[PurchaseOrderDetail]
+WHERE [ProductID] in (421, 424, 142)
+GO
